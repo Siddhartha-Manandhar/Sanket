@@ -40,8 +40,8 @@ class StoryGraph{
     unordered_map<string, Scene> scenes;
 
     public:
-    void addScene(string id,string description, string choicequestion, vector<string> choices, vector<string> nextScenes){
-        scenes[id] = {description,choicequestion, choices, nextScenes};
+    void addScene(string id,string choicequestion, vector<string> choices, vector<string> nextScenes){
+        scenes[id] = {"", choicequestion, choices, nextScenes, "", ""};
     }
 
     void play(string startID){
@@ -65,12 +65,13 @@ class StoryGraph{
 
             settextstyle(1, HORIZ_DIR, 2);
             PlaySoundA(scene.audio.c_str(),NULL,SND_FILENAME | SND_ASYNC);
-            typeText(20, 482, line.c_str(),20);
+            typeText(20, 482, line.c_str(),50);
             setfillstyle(SOLID_FILL, RED);
             int triangle[] = {960, 640, 970, 660, 980, 640, 960, 640};
             fillpoly(3, triangle);
 
             char x;
+            x = 'A';
             while(x != '\r'){
                 x = getch();
             }
@@ -129,7 +130,10 @@ class StoryGraph{
 int main(){
     initwindow(1024,684,"Story");
     StoryGraph game;
-    game.addScene("intro", "Ronan and his friends Camila and Cannon go hiking. A light flashes...","Press Enter",{"Enter"},{"summoned"});
+    game.addScene("intro","Press Enter",{"Enter"},{"summoned"});
+    game.addScene("summoned","Will you save our world?",{"Yes","No"},{"affinity_check", "bad_end"});
+    game.addScene("bad_end","They lived as nobles until Kizaru destroyed the kingdom. The End",{"Game Over"},{"Game Over"});
+
     game.play("intro");
 
     getch();
