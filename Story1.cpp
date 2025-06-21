@@ -6,7 +6,11 @@
 #include<mmsystem.h>
 #include<windows.h>
 #include<fstream>
+<<<<<<< HEAD
 #pragma comment(lib, "winmm.lib")
+=======
+#pragma comment(lib,"winmm.lib")
+>>>>>>> b6b13290e2eacc21ad86e502c31d491cb70d11a9
 using namespace std;
 
 struct Scene{
@@ -133,9 +137,40 @@ int main(){
     game.addScene("intro","Press Enter",{"Enter"},{"summoned"});
     game.addScene("summoned","Will you save our world?",{"Yes","No"},{"affinity_check", "bad_end"});
     game.addScene("bad_end","They lived as nobles until Kizaru destroyed the kingdom. The End",{"Game Over"},{"Game Over"});
+<<<<<<< HEAD
+=======
+    game.addScene("affinity_check","What path will you choose?",{"Sword","Wand"},{"sword_path", "magic_path"});
+    // game.addScene("sword_path","Choose your weapon",{"Katana", "Longsword", "Khukuri"},{"katana_path", "longsword_path", "khukuri_path"});
+    // game.addScene("magic_path","Choose your element",{"Water", "Fire", "Lightning"},{"water_path", "fire_path", "lightning_path"});
+
+    // game.addScene("katana_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"katana_fight", "katana_flight"});
+    // game.addScene("longsword_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"longsword_fight", "longsword_flight"});
+    // game.addScene("khukuri_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"khukuri_fight", "khukuri_flight"});
+    // game.addScene("water_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"water_fight", "water_flight"});
+    // game.addScene("fire_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"fire_fight", "fire_flight"});
+    // game.addScene("lightning_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"lightning_fight", "lightning_flight"});
+
+    // game.addScene("khukuri_fight","You fought bravely, but Cannon fell in battle.",{"Continue"},{"resolve"});
+    // game.addScene("water_fight","Camila was struck down during the battle.",{"Continue"},{"resolve"});
+    // game.addScene("fire_fight","You defeated the enemy with Camila's fire magic!",{"Continue"},{"resolve"});
+    // game.addScene("lightning_fight","You held your ground with lightning speed!",{"Continue"},{"resolve"});
+    // game.addScene("katana_fight","Balanced effort. You barely survived!",{"Continue"},{"resolve"});
+    // game.addScene("longsword_fight","Victory with combined sword power!",{"Continue"},{"resolve"});
+
+    // game.addScene("resolve","Ronan trained for months in the jungle and stepped into the demonic portal.",{"Proceed"},{"final_battle"});
+    // game.addScene("final_battle","The battle against Kizaru lasted three days. At last, he fell.",{"The End"},{"final_choice"});
+    // game.addScene("final_choice","Will you stay in this world?",{"Yes", "No"},{"stay_hero", "return_home"});
+    // game.addScene("stay_hero","You remain as a legendary hero in this world.",{"Game Over"},{"Game Over"});
+    // game.addScene("return_home","You return to Nepal, forever changed.",{"Game Over"},{"Game Over"});
+  
+>>>>>>> b6b13290e2eacc21ad86e502c31d491cb70d11a9
 
     game.play("intro");
 
     getch();
     closegraph();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b6b13290e2eacc21ad86e502c31d491cb70d11a9
