@@ -196,26 +196,47 @@ int main(){
     game.addScene("fire_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"fire_fight", "fire_flight"});
     game.addScene("lightning_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"lightning_fight", "lightning_flight"});
     
-    game.addScene("khukuri_fight","The Hand appears! Fight or run?",{"battle","Run"},{"khukuri_battle","khukuri_run"});
-//     game.addScene("water_fight","Camila fell. What now?",{"battle","Run"},{"katana_battle","katana_run"});
-//     game.addScene("fire_fight","Camila's fire saved many!",{"battle","Run"},{"katana_battle","katana_run"});
-//     game.addScene("lightning_fight","You struck with lightning speed!",{"battle","Run"},{"katana_battle","katana_run"});
-//     game.addScene("katana_fight","You barely made it!",{"battle","Run"},{"katana_battle","katana_run"});
-//     game.addScene("longsword_fight","You led to victory!",{"battle","Run"},{"katana_battle","katana_run"});
+    game.addScene("katana_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"katana_battle", "katana_run"});
+    game.addScene("longsword_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"longsword_battle", "longsword_run"});
+    game.addScene("khukuri_fight","The Hand appears! Fight or run?",{"battle", "Run"},{"khukuri_battle", "khukuri_run"});
+    game.addScene("water_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"water_battle", "water_run"});
+    game.addScene("fire_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"fire_battle", "fire_run"});
+    game.addScene("lightning_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"lightning_battle", "lightning_run"});
 
-//     game.addScene("khukuri_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"khukuri_strike", "khukuri_defend"});
-//     game.addScene("khukuri_strike", "Hit landed! It counters!", {"Endure", "Escape"}, {"final_battle", "game_over"});
-//     game.addScene("khukuri_defend", "You blocked it! Act now!", {"Counter", "Retreat"}, {"final_battle", "game_over"});
+    game.addScene("khukuri_flight", "You and Cannon escaped, but guilt haunts you as others fell.", {"Continue"}, {"resolve"});
+    game.addScene("katana_flight", "You managed to escape with injuries. You saw many fall.", {"Continue"}, {"resolve"});
+    game.addScene("longsword_flight", "You retreated, but the academy suffered massive losses.", {"Continue"}, {"resolve"});
+    game.addScene("water_flight", "You fled using water currents, but Camila got separated.", {"Continue"}, {"resolve"});
+    game.addScene("fire_flight", "Your fiery distraction saved some, but not all. A narrow escape.", {"Continue"}, {"resolve"});
+    game.addScene("lightning_flight", "You bolted away with lightning speed. The guilt lingers.", {"Continue"}, {"resolve"});
 
-//     game.addScene("game_over", "You fell to the Hand. The End.", {"Game Over"}, {"Game Over"});
-//     game.addScene("khukuri_run", "You escaped, but the world suffers.", {"Continue"}, {"resolve"});
 
-//     game.addScene("katana_run", "You escaped with scars.", {"Continue"}, {"resolve"});
-//     game.addScene("longsword_flight", "You retreated. Many lost.", {"Continue"}, {"resolve"});
-//     game.addScene("khukuri_flight", "You and Cannon fled, guilt remains.", {"Continue"}, {"resolve"});
-//     game.addScene("water_flight", "You fled, but lost Camila.", {"Continue"}, {"resolve"});
-//     game.addScene("fire_flight", "Fire saved some. Narrow escape.", {"Continue"}, {"resolve"});
-//     game.addScene("lightning_flight", "You escaped fast. Regret lingers.", {"Continue"}, {"resolve"});
+
+// Khukuri
+game.addScene("khukuri_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("khukuri_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Water
+// game.addScene("water_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("water_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Fire
+// game.addScene("fire_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("fire_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Lightning
+// game.addScene("lightning_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("lightning_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Katana
+// game.addScene("katana_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("katana_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Longsword
+// game.addScene("longsword_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("longsword_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+
 
 //     game.addScene("resolve","Ronan vows to grow stronger.", {"Train in jungle"}, {"training"});
 //     game.addScene("training", "Ronan aims for the castle.", {"Enter portal"}, {"final_battle"});
@@ -245,4 +266,4 @@ int main(){
 
 //     getch();
 //     closegraph();
-// }
+}
