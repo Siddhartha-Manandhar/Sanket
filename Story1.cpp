@@ -6,7 +6,8 @@
 #include<mmsystem.h>
 #include<windows.h>
 #include<fstream>
-#pragma comment(lib, "winmm.lib")
+#pragma comment(lib,"winmm.lib")
+#include<sstream>
 using namespace std;
 
 struct Scene{
@@ -20,22 +21,50 @@ struct Scene{
 };
 
 void typeText(int x, int y, const char* text, int charDelay = 5) {
-    int count = 0;
+    int leftMargin = 10;
+    int rightMargin = 1005;
+    int maxWidth = rightMargin - leftMargin;
+    int lineWidth = 0;
+    int lineHeight = 20;
+
     char temp[2] = "";  // to hold single character as a string
-    for (int i = 0; i < strlen(text); i++) {
-        temp[0] = text[i];
-        outtextxy(x, y, temp);
-        count++;
-        x += textwidth(temp);  // move to next character position
-        delay(charDelay);      // delay in milliseconds
-        if(count > 56 || (temp[0] == ' ' && count > 54)){
-            x = 20;
-            y += 20;
-            count = 0;
+    bool skip = false;
+    int startX = x;
+
+    stringstream ss(text);
+    string word;
+
+    while (ss >> word) {
+        string displayWord = (lineWidth > 0) ? " " + word : word;
+        int wordWidth = textwidth((char*)displayWord.c_str());
+
+        if (lineWidth + wordWidth > maxWidth) {
+            x = startX;
+            y += lineHeight;
+            lineWidth = 0;
+        }
+
+        for (int i = 0; i < displayWord.length(); i++) {
+            if (!skip && kbhit()) {
+                char key = getch();
+                if (key == ' ') {
+                    skip = true;
+                }
+            }
+
+            temp[0] = displayWord[i];
+            outtextxy(x, y, temp);
+            int charWidth = textwidth(temp);
+            x += charWidth;
+            lineWidth += charWidth;
+
+            if (!skip) {
+                delay(charDelay);
+            }
         }
     }
-
 }
+
 class StoryGraph{
     unordered_map<string, Scene> scenes;
 
@@ -97,33 +126,55 @@ class StoryGraph{
     int choicebox(Scene &scene){
         cleardevice();
 
+        int spacing = 40;
+        vector<int> widths(scene.choices.size());
+        int totalWidth = 0;
+
         backprep(scene);
 
         // Display question
         settextstyle(1, HORIZ_DIR, 2);
+
         typeText(20, 482, scene.choicequestion.c_str(),10);
 
         for(size_t i = 0; i < scene.choices.size(); ++i){
-            typeText(100 * (i + 1), 570, scene.choices[i].c_str(), 10);
+            widths[i] = textwidth((char*)scene.choices[i].c_str());
+            totalWidth += widths[i];
+            if(i < scene.choices.size() - 1) totalWidth += spacing;
+        }
+        
+        int x = (getmaxx() - totalWidth) / 2;
+        vector<int> xpositions(scene.choices.size());
+        for(size_t i = 0; i < scene.choices.size(); ++i){
+            xpositions[i] = x;
+            typeText(x, 570, scene.choices[i].c_str());
+            x += widths[i] + spacing;
         }
 
-        char x;
-        int choice = 1;
-        int prevchoice;
-        while(x != '\r'){
-            prevchoice = choice;
-            setfillstyle(SOLID_FILL, WHITE);
-            bar((choice * 100) - 15, 574,(choice * 100) - 5, 584);
-            x = getch();
-            if (x == 75) choice--; //Left
-            if (x == 77) choice++; //Right
-            if (choice < 1) choice = scene.choices.size();
-            if (choice > scene.choices.size()) choice = 1;
-            setfillstyle(SOLID_FILL, BLACK);
-            bar((prevchoice * 100) - 15, 574,(prevchoice * 100) - 5, 584);
+        char input;
+        int choice = 0;
+        int prevchoice = -1;
+        while(input != '\r'){
+
+            if(prevchoice != choice){
+                if(prevchoice >= 0){
+                    setfillstyle(SOLID_FILL, BLACK);
+                    bar(xpositions[prevchoice] - 15, 574 ,xpositions[prevchoice] - 5, 584);
+                }
+                setfillstyle(SOLID_FILL, WHITE);
+                bar(xpositions[choice] - 15, 574 ,xpositions[choice] - 5, 584);
+            }
+
+            input = getch();
+            if (input == 75) choice--; //Left
+            if (input == 77) choice++; //Right
+
+            if (choice < 0) choice = scene.choices.size() - 1;
+            if (choice > scene.choices.size()) choice = 0;
+
 
         }
-        return choice;
+        return choice + 1;
     }
 };
 
@@ -132,17 +183,18 @@ int main(){
     StoryGraph game;
     game.addScene("intro","Press Enter",{"Enter"},{"summoned"});
     game.addScene("summoned","Will you save our world?",{"Yes","No"},{"discovery", "bad_end"});
-    game.addScene("discovery","Continue",{"Enter"},{"afinity_check"});
+    game.addScene("discovery","Continue",{"Enter"},{"affinity_check"});
     game.addScene("bad_end","They lived as nobles until Kizaru destroyed the kingdom. The End",{"Game Over"},{"Game Over"});
-    game.addScene("affinity_check","What path will you choose?",{"Sword","Wand"},{"sword_path", "wand_path"});
-    game.addScene("sword_path","Choose your weapon?",{"katana", "longsword", "khukuri"},{"katana_path", "longsword_path", "khukuri_path"});
-    game.addScene("wand_path","Choose your element",{"Water", "Fire", "Lightening"},{"water_path", "fire_path", "lightening_path"});
+    game.addScene("affinity_check","What path will you choose?",{"Sword","Wand"},{"sword_path", "magic_path"});
+    game.addScene("sword_path","Choose your weapon",{"Katana", "Longsword", "Khukuri"},{"katana_path", "longsword_path", "khukuri_path"});
+    game.addScene("magic_path","Choose your element",{"Water", "Fire", "Lightning"},{"water_path", "fire_path", "lightning_path"});
+
     game.addScene("katana_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"katana_fight", "katana_flight"});
     game.addScene("longsword_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"longsword_fight", "longsword_flight"});
     game.addScene("khukuri_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"khukuri_fight", "khukuri_flight"});
     game.addScene("water_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"water_fight", "water_flight"});
     game.addScene("fire_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"fire_fight", "fire_flight"});
-    game.addScene("lightning_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"lightening_fight", "lightening_flight"});
+    game.addScene("lightning_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"lightning_fight", "lightning_flight"});
 
     // game.addScene("khukuri_fight","You fought bravely, but Cannon fell in battle.",{"Continue"},{"resolve"});
     // game.addScene("water_fight","Camila was struck down during the battle.",{"Continue"},{"resolve"});
