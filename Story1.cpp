@@ -113,6 +113,8 @@ class StoryGraph{
     }
 
     void backprep(Scene &scene){
+            setbkcolor(BLACK);
+            cleardevice();
             //Display Image
             readimagefile(scene.img.c_str(), 0, 0, 1024, 682); 
 
@@ -190,27 +192,115 @@ int main(){
     game.addScene("magic_path","Choose your element",{"Water", "Fire", "Lightning"},{"water_path", "fire_path", "lightning_path"});
 
     game.addScene("katana_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"katana_fight", "katana_flight"});
-    game.addScene("longsword_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"longsword_fight", "longsword_flight"});
+    game.addScene("longsword_path","The academy is under attack! What will you do??",{"Fight", "Flight"},{"longsword_fight", "longsword_flight"});
     game.addScene("khukuri_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"khukuri_fight", "khukuri_flight"});
     game.addScene("water_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"water_fight", "water_flight"});
     game.addScene("fire_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"fire_fight", "fire_flight"});
     game.addScene("lightning_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"lightning_fight", "lightning_flight"});
+    
+    game.addScene("katana_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"katana_battle", "katana_run"});
+    game.addScene("longsword_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"longsword_battle", "longsword_run"});
+    game.addScene("khukuri_fight","The Hand appears! Fight or run?",{"battle", "Run"},{"khukuri_battle", "khukuri_run"});
+    game.addScene("water_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"water_battle", "water_run"});
+    game.addScene("fire_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"fire_battle", "fire_run"});
+    game.addScene("lightning_fight", "The Hand appears! Fight or run?", {"battle", "Run"}, {"lightning_battle", "lightning_run"});
 
-    // game.addScene("khukuri_fight","You fought bravely, but Cannon fell in battle.",{"Continue"},{"resolve"});
-    // game.addScene("water_fight","Camila was struck down during the battle.",{"Continue"},{"resolve"});
-    // game.addScene("fire_fight","You defeated the enemy with Camila's fire magic!",{"Continue"},{"resolve"});
-    // game.addScene("lightning_fight","You held your ground with lightning speed!",{"Continue"},{"resolve"});
-    // game.addScene("katana_fight","Balanced effort. You barely survived!",{"Continue"},{"resolve"});
-    // game.addScene("longsword_fight","Victory with combined sword power!",{"Continue"},{"resolve"});
+    game.addScene("khukuri_flight", "You and Cannon escaped, but guilt haunts you as others fell.", {"Continue"}, {"resolve"});
+    game.addScene("katana_flight", "You managed to escape with injuries. You saw many fall.", {"Continue"}, {"resolve"});
+    game.addScene("longsword_flight", "You retreated, but the academy suffered massive losses.", {"Continue"}, {"resolve"});
+    game.addScene("water_flight", "You fled using water currents, but Camila got separated.", {"Continue"}, {"resolve"});
+    game.addScene("fire_flight", "Your fiery distraction saved some, but not all. A narrow escape.", {"Continue"}, {"resolve"});
+    game.addScene("lightning_flight", "You bolted away with lightning speed. The guilt lingers.", {"Continue"}, {"resolve"});
 
-    // game.addScene("resolve","Ronan trained for months in the jungle and stepped into the demonic portal.",{"Proceed"},{"final_battle"});
-    // game.addScene("final_battle","The battle against Kizaru lasted three days. At last, he fell.",{"The End"},{"final_choice"});
-    // game.addScene("final_choice","Will you stay in this world?",{"Yes", "No"},{"stay_hero", "return_home"});
-    // game.addScene("stay_hero","You remain as a legendary hero in this world.",{"Game Over"},{"Game Over"});
-    // game.addScene("return_home","You return to Nepal, forever changed.",{"Game Over"},{"Game Over"});
-  
 
-    game.play("intro");
+
+// Khukuri
+game.addScene("khukuri_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("khukuri_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Water
+// game.addScene("water_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("water_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Fire
+// game.addScene("fire_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("fire_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Lightning
+// game.addScene("lightning_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("lightning_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Katana
+// game.addScene("katana_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("katana_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+// // Longsword
+// game.addScene("longsword_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+// game.addScene("longsword_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
+
+
+
+//     game.addScene("resolve","Ronan vows to grow stronger.", {"Train in jungle"}, {"training"});
+//     game.addScene("training", "Ronan aims for the castle.", {"Enter portal"}, {"final_battle"});
+
+//     // Final Battle
+//     game.addScene("final_battle", 
+//         "3-day war. You face Kizaru. World's fate at stake.", 
+//         {"Fight Kizaru"}, 
+//         {"final_choice"});
+
+//     game.addScene("final_choice", 
+//         "Kizaru is down. A portal opens behind you. Stay?", 
+//         {"Yes", "No"}, 
+//         {"stay_ending", "return_ending"});
+
+//     game.addScene("stay_ending", 
+//         "You stayed and rebuilt the world. Hero forever.", 
+//         {"The End"}, 
+//         {"Game Over"});
+
+//     game.addScene("return_ending", 
+//         "You returned changed, wiser. The journey shaped you.", 
+//         {"The End"}, 
+//         {"Game Over"});
+
+        int choice = 0;
+        int choicepos = 0;
+        int midX = getmaxx() / 2;
+
+        setbkcolor(RED);
+        cleardevice();
+        readimagefile("Menu.jpeg", 0, 0, 1024, 682);
+        PlaySoundA("Menu.wav",NULL,SND_FILENAME | SND_ASYNC);
+
+    while(choice != 2){
+        
+        setfillstyle(SOLID_FILL, RED);
+        
+        for(int i = 0; i < 2; i++){
+            bar(midX - (200 + 5), 295 + 150 * i, midX + (200 + 5), 405 + 150 * i);
+                 
+        }
+        
+        settextstyle(1, HORIZ_DIR, 2); 
+        outtextxy(midX - 100, 300 + 30, " Start Game");
+        outtextxy(midX - 100, 450 + 30, "      Exit");
+
+        setcolor(WHITE);
+        setlinestyle(0, 1, 6);
+        rectangle(midX - 200, 300 + 150 * choicepos, midX + 200, 400 + 150 * choicepos);
+
+        int input = getch();
+        if(input == 72 && choicepos > 0) choicepos--;//up
+        if(input == 80 && choicepos < 1) choicepos++;//down
+        if(input == 13) choice = choicepos + 1;
+
+        switch(choice){
+            case 1: game.play("intro"); break;
+            case 2: exit(0);
+        }
+
+    }
 
     getch();
     closegraph();
