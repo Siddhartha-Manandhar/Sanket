@@ -113,6 +113,8 @@ class StoryGraph{
     }
 
     void backprep(Scene &scene){
+            setbkcolor(BLACK);
+            cleardevice();
             //Display Image
             readimagefile(scene.img.c_str(), 0, 0, 1024, 682); 
 
@@ -262,8 +264,44 @@ game.addScene("khukuri_run", "You escaped, but darkness spreads across the land.
 //         {"The End"}, 
 //         {"Game Over"});
 
-//     game.play("intro");
+        int choice = 0;
+        int choicepos = 0;
+        int midX = getmaxx() / 2;
 
-//     getch();
-//     closegraph();
+        setbkcolor(RED);
+        cleardevice();
+        readimagefile("Menu.jpeg", 0, 0, 1024, 682);
+        PlaySoundA("Menu.wav",NULL,SND_FILENAME | SND_ASYNC);
+
+    while(choice != 2){
+        
+        setfillstyle(SOLID_FILL, RED);
+        
+        for(int i = 0; i < 2; i++){
+            bar(midX - (200 + 5), 295 + 150 * i, midX + (200 + 5), 405 + 150 * i);
+                 
+        }
+        
+        settextstyle(1, HORIZ_DIR, 2); 
+        outtextxy(midX - 100, 300 + 30, " Start Game");
+        outtextxy(midX - 100, 450 + 30, "      Exit");
+
+        setcolor(WHITE);
+        setlinestyle(0, 1, 6);
+        rectangle(midX - 200, 300 + 150 * choicepos, midX + 200, 400 + 150 * choicepos);
+
+        int input = getch();
+        if(input == 72 && choicepos > 0) choicepos--;//up
+        if(input == 80 && choicepos < 1) choicepos++;//down
+        if(input == 13) choice = choicepos + 1;
+
+        switch(choice){
+            case 1: game.play("intro"); break;
+            case 2: exit(0);
+        }
+
+    }
+
+    getch();
+    closegraph();
 }
