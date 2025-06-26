@@ -189,25 +189,52 @@ int main(){
     game.addScene("sword_path","Choose your weapon",{"Katana", "Longsword", "Khukuri"},{"katana_path", "longsword_path", "khukuri_path"});
     game.addScene("magic_path","Choose your element",{"Water", "Fire", "Lightning"},{"water_path", "fire_path", "lightning_path"});
 
-    game.addScene("katana_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"katana_fight", "katana_flight"});
-    game.addScene("longsword_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"longsword_fight", "longsword_flight"});
-    game.addScene("khukuri_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"khukuri_fight", "khukuri_flight"});
-    game.addScene("water_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"water_fight", "water_flight"});
-    game.addScene("fire_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"fire_fight", "fire_flight"});
-    game.addScene("lightning_path","The academy is under attack! What will you do?",{"Fight", "Flight"},{"lightning_fight", "lightning_flight"});
+    game.addScene("katana_path","The academy is under attack by Right hand of Evil Lord! What will you do?",{"Fight", "Flight"},{"katana_fight", "katana_flight"});
+    game.addScene("longsword_path","The academy is under attack by Right hand of Evil Lord! What will you do?",{"Fight", "Flight"},{"longsword_fight", "longsword_flight"});
+    game.addScene("khukuri_path","The academy is under attack by Right hand of Evil Lord! What will you do?",{"Fight", "Flight"},{"khukuri_fight", "khukuri_flight"});
+    game.addScene("water_path","The academy is under attack by Left hand of Evil Lord! What will you do?",{"Fight", "Flight"},{"water_fight", "water_flight"});
+    game.addScene("fire_path","The academy is under attack by Left hand of Evil Lord! What will you do?",{"Fight", "Flight"},{"fire_fight", "fire_flight"});
+    game.addScene("lightning_path","The academy is under attack by Left hand of Evil Lord! What will you do?",{"Fight", "Flight"},{"lightning_fight", "lightning_flight"});
+    
+    game.addScene("khukuri_fight","You fought bravely, but Cannon fell in battle.",{"Continue"},{"resolve"});
+    game.addScene("water_fight","Camila was struck down during the battle.",{"Continue"},{"resolve"});
+    game.addScene("fire_fight","You defeated the enemy with Camila's fire magic!",{"Continue"},{"resolve"});
+    game.addScene("lightning_fight","You held your ground with lightning speed!",{"Continue"},{"resolve"});
+    game.addScene("katana_fight","Balanced effort. You barely survived!",{"Continue"},{"resolve"});
+    game.addScene("longsword_fight","Victory with combined sword power!",{"Continue"},{"resolve"});
 
-    // game.addScene("khukuri_fight","You fought bravely, but Cannon fell in battle.",{"Continue"},{"resolve"});
-    // game.addScene("water_fight","Camila was struck down during the battle.",{"Continue"},{"resolve"});
-    // game.addScene("fire_fight","You defeated the enemy with Camila's fire magic!",{"Continue"},{"resolve"});
-    // game.addScene("lightning_fight","You held your ground with lightning speed!",{"Continue"},{"resolve"});
-    // game.addScene("katana_fight","Balanced effort. You barely survived!",{"Continue"},{"resolve"});
-    // game.addScene("longsword_fight","Victory with combined sword power!",{"Continue"},{"resolve"});
+    game.addScene("khukuri_flight", "You and Cannon escaped, but guilt haunts you as others fell.", {"Continue"}, {"resolve"});
+    game.addScene("katana_flight", "You managed to escape with injuries. You saw many fall.", {"Continue"}, {"resolve"});
+    game.addScene("longsword_flight", "You retreated, but the academy suffered massive losses.", {"Continue"}, {"resolve"});
+    game.addScene("water_flight", "You fled using water currents, but Camila got separated.", {"Continue"}, {"resolve"});
+    game.addScene("fire_flight", "Your fiery distraction saved some, but not all. A narrow escape.", {"Continue"}, {"resolve"});
+    game.addScene("lightning_flight", "You bolted away with lightning speed. The guilt lingers.", {"Continue"}, {"resolve"});
 
-    // game.addScene("resolve","Ronan trained for months in the jungle and stepped into the demonic portal.",{"Proceed"},{"final_battle"});
-    // game.addScene("final_battle","The battle against Kizaru lasted three days. At last, he fell.",{"The End"},{"final_choice"});
-    // game.addScene("final_choice","Will you stay in this world?",{"Yes", "No"},{"stay_hero", "return_home"});
-    // game.addScene("stay_hero","You remain as a legendary hero in this world.",{"Game Over"},{"Game Over"});
-    // game.addScene("return_home","You return to Nepal, forever changed.",{"Game Over"},{"Game Over"});
+    
+    game.addScene("resolve","After the battle, Ronan vowed to become stronger.", {"Train in the jungle"}, {"training"});
+    game.addScene("training", "Ronan wants to enter the castle!", {"Enter the portal"}, {"final_battle"});
+
+// Chapter 7: Final Battle
+// game.addScene("final_battle", 
+// "A brutal three-day war begins. You and your remaining allies face Kizaru himself in his throne chamber. The fate of both worlds hangs in the balance.", 
+// {"Fight Kizaru"}, 
+// {"final_choice"});
+
+// Chapter 8: Final Choice
+// game.addScene("final_choice", 
+// "With Kizaru defeated, peace returns. But a glowing portal back to Earth opens behind you.\n\nWill you stay in this world?", 
+// {"Yes", "No"}, 
+// {"stay_ending", "return_ending"});
+
+// game.addScene("stay_ending", 
+// "You choose to stay. Over the years, legends spread of a great hero who saved the world and rebuilt it from ashes. You become a guiding light for generations.", 
+// {"The End"}, 
+// {"Game Over"});
+
+// game.addScene("return_ending", 
+// "You return home—changed, wiser, and forever marked by the battles you fought. The real world feels different, and so do you. But you carry the strength within.", 
+// {"The End"}, 
+// {"Game Over"});
   
 
     game.play("intro");
