@@ -6,9 +6,9 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "Story1.cpp",  // yesma afno cpp ko filename halne
+                "Game.cpp",  // yesma afno cpp ko filename halne
                 "-o",
-                "Story1.exe", // output exe filename halne yeta
+                "Game.exe", // output exe filename halne yeta
                 "-lwinmm",                 // For PlaySoundA
                 "-lbgi",                   // WinBGIm library
                 "-lgdi32",                 // Required for WinBGIm (Windows GDI)
