@@ -153,7 +153,7 @@ class StoryGraph{
             x += widths[i] + spacing;
         }
 
-        char input;
+        char input = 0;
         int choice = 0;
         int prevchoice = -1;
         while(input != '\r'){
@@ -165,6 +165,7 @@ class StoryGraph{
                 }
                 setfillstyle(SOLID_FILL, WHITE);
                 bar(xpositions[choice] - 15, 574 ,xpositions[choice] - 5, 584);
+                prevchoice = choice;
             }
 
             input = getch();
@@ -172,7 +173,7 @@ class StoryGraph{
             if (input == 77) choice++; //Right
 
             if (choice < 0) choice = scene.choices.size() - 1;
-            if (choice > scene.choices.size()) choice = 0;
+            if (choice >= scene.choices.size()) choice = 0;
 
 
         }
@@ -186,7 +187,7 @@ int main(){
     game.addScene("intro","Press Enter",{"Enter"},{"summoned"});
     game.addScene("summoned","Will you save our world?",{"Yes","No"},{"discovery", "bad_end"});
     game.addScene("discovery","Continue",{"Enter"},{"affinity_check"});
-    game.addScene("bad_end","They lived as nobles until Kizaru destroyed the kingdom. The End",{"Game Over"},{"Game Over"});
+    game.addScene("bad_end","They lived as nobles until Kizaru destroyed the kingdom. The End",{"Game Over"},{"Game_Over"});
     game.addScene("affinity_check","What path will you choose?",{"Sword","Wand"},{"sword_path", "magic_path"});
     game.addScene("sword_path","Choose your weapon",{"Katana", "Longsword", "Khukuri"},{"katana_path", "longsword_path", "khukuri_path"});
     game.addScene("magic_path","Choose your element",{"Water", "Fire", "Lightning"},{"water_path", "fire_path", "lightning_path"});
@@ -215,54 +216,45 @@ int main(){
 
 
 // Khukuri
-game.addScene("khukuri_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("khukuri_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"Strike_Won", "game_over"});
 game.addScene("khukuri_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
 
 // Water
-game.addScene("water_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("water_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"Strike_Won", "game_over"});
 game.addScene("water_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
 
 // Fire
-game.addScene("fire_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("fire_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"Strike_Won", "game_over"});
 game.addScene("fire_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
 
 // Lightning
-game.addScene("lightning_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("lightning_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"Strike_Won", "game_over"});
 game.addScene("lightning_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
 
 // Katana
-game.addScene("katana_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("katana_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"Strike_Won", "game_over"});
 game.addScene("katana_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
 
 // Longsword
-game.addScene("longsword_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"final_battle", "game_over"});
+game.addScene("longsword_battle", "The Hand attacks! Strike or defend?", {"Strike", "Defend"}, {"Strike_Won", "game_over"});
 game.addScene("longsword_run", "You escaped, but darkness spreads across the land.", {"Continue"}, {"resolve"});
 
+game.addScene("Strike_Won", "The Hand is defeated.", {"Continue"}, {"continue"});
+game.addScene("continue", "Continue", {"Enter"}, {"resolve"});
 
+game.addScene("resolve","Ronan vows to grow stronger.", {"Train in jungle"}, {"training"});
+game.addScene("training", "Ronan aims for the castle.", {"Enter portal"}, {"final_battle_1"});
 
-    game.addScene("resolve","Ronan vows to grow stronger.", {"Train in jungle"}, {"training"});
-    game.addScene("training", "Ronan aims for the castle.", {"Enter portal"}, {"final_battle"});
+    // Final Battle
+game.addScene("final_battle_1","3-day war. You face Kizaru. World's fate at stake.", {"Fight Kizaru"},{"final_battle_2"});
+game.addScene("final_battle_2","Continue", {"Continue"},{"Final_battle_3"});
+game.addScene("final_battle_3","Continue", {"Continue"},{"final_choice"});
 
-//     // Final Battle
-//     game.addScene("final_battle", 
-//         "3-day war. You face Kizaru. World's fate at stake.", 
-//         {"Fight Kizaru"}, 
-//         {"final_choice"});
+    game.addScene("final_choice","Will you Stay in this world?", {"Yes", "No"}, {"stay_ending", "return_ending"});
+    game.addScene("stay_ending","You stayed and rebuilt the world. Hero forever.", {"The End"}, {"Game_Over"});
+    game.addScene("return_ending","You returned changed, wiser. The journey shaped you.", {"The End"}, {"Game_Over"});
 
-//     game.addScene("final_choice", 
-//         "Kizaru is down. A portal opens behind you. Stay?", 
-//         {"Yes", "No"}, 
-//         {"stay_ending", "return_ending"});
-
-//     game.addScene("stay_ending", 
-//         "You stayed and rebuilt the world. Hero forever.", 
-//         {"The End"}, 
-//         {"Game Over"});
-
-//     game.addScene("return_ending", 
-//         "You returned changed, wiser. The journey shaped you.", 
-//         {"The End"}, 
-//         {"Game Over"});
+    game.addScene("Game_Over","", {"Exit"}, {});
 
         int choice = 0;
         int choicepos = 0;
@@ -284,7 +276,7 @@ game.addScene("longsword_run", "You escaped, but darkness spreads across the lan
         
         settextstyle(1, HORIZ_DIR, 2); 
         outtextxy(midX - 100, 300 + 30, " Start Game");
-        outtextxy(midX - 100, 450 + 30, "Exit");
+        outtextxy(midX - 100, 450 + 30, "      Exit");
 
         setcolor(WHITE);
         setlinestyle(0, 1, 6);
